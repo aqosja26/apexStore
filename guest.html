@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Browse apexStore products and create a sample bill." />
+    <title>Shop as a guest | apexStore</title>
+    <link rel="stylesheet" href="stylish/styles.css" />
+    <script type="module" src="javascripts/guest.js"></script>
+  </head>
+  <body>
+    <main class="guest-store">
+      <header class="store-header">
+        <a class="brand store-brand" href="index.html" aria-label="apexStore home">
+          <span class="brand-mark" aria-hidden="true">A</span>
+          <span>apex<span class="brand-light">Store</span></span>
+        </a>
+        <a class="secondary-button" href="index.html">Back to home</a>
+      </header>
+
+      <div class="store-layout">
+        <section class="catalog-area" aria-labelledby="storeTitle">
+          <p class="eyebrow">Browse as a guest</p>
+          <h1 id="storeTitle">Explore electronics</h1>
+          <p class="store-description">
+            Find your next favorite thing. No account needed.
+          </p>
+
+          <div class="store-tools">
+            <label class="store-search">
+              <span class="visually-hidden">Search products</span>
+              <input id="productSearch" type="search" placeholder="Search products..." />
+            </label>
+            <label class="store-category">
+              <span class="visually-hidden">Filter by category</span>
+              <select id="categoryFilter">
+                <option value="all">All categories</option>
+              </select>
+            </label>
+          </div>
+
+          <p class="store-result-count" id="storeResultCount" aria-live="polite"></p>
+          <div class="guest-product-grid" id="guestProductGrid" aria-live="polite"></div>
+        </section>
+
+        <aside class="bill-panel" aria-labelledby="billTitle">
+          <div class="bill-heading">
+            <div>
+              <p class="eyebrow">Your selection</p>
+              <h2 id="billTitle">Your bill</h2>
+            </div>
+            <span class="bill-item-count" id="billItemCount">0</span>
+          </div>
+
+          <div class="bill-items" id="billItems" aria-live="polite"></div>
+
+          <div class="bill-total-row">
+            <span>Subtotal</span>
+            <strong id="billSubtotal">$0.00</strong>
+          </div>
+          <div class="bill-total-row bill-grand-total">
+            <span>Total</span>
+            <strong id="billTotal">$0.00</strong>
+          </div>
+
+          <p class="form-message" id="billMessage" role="status" aria-live="polite"></p>
+          <p class="bill-disclaimer">
+            Sample bill only. Taxes, shipping, payment, and ordering are not included.
+          </p>
+          <button class="primary-button print-bill-button" id="printBillButton" type="button" disabled>
+            Print bill
+          </button>
+        </aside>
+      </div>
+    </main>
+  </body>
+</html>

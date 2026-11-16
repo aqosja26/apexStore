@@ -1,8 +1,10 @@
-const adminTab = document.querySelector('#adminTab');
-const customerTab = document.querySelector('#customerTab');
-const adminPanel = document.querySelector('#adminPanel');
-const customerPanel = document.querySelector('#customerPanel');
-const guestMessage = document.querySelector('#guestMessage');
+import {
+  createDefaultProducts,
+  loadProducts,
+  money,
+  saveProducts as persistProducts,
+} from './store.js';
+
 const adminAccessCard = document.querySelector('#adminAccessCard');
 const adminLoginForm = document.querySelector('#adminLoginForm');
 const adminMessage = document.querySelector('#adminMessage');
@@ -13,57 +15,19 @@ const productCount = document.querySelector('#productCount');
 const productForm = document.querySelector('#productForm');
 const productFormTitle = document.querySelector('#productFormTitle');
 const saveProductButton = document.querySelector('#saveProductButton');
-const storageKey = 'apexstore.admin-preview.products.v1';
+
 const sampleAdmin = {
   email: 'admin@apexstore.test',
   password: 'admin123',
 };
 
-const defaultProducts = [
-  { id: 1, name: 'Pulse Wireless Headphones', category: 'Audio', price: 129, stock: 24 },
-  { id: 2, name: 'Apex Mechanical Keyboard', category: 'Accessories', price: 89, stock: 18 },
-  { id: 3, name: 'Precision Wireless Mouse', category: 'Accessories', price: 59, stock: 32 },
-  { id: 4, name: 'Summit Laptop', category: 'Computing', price: 1499, stock: 7 },
-];
-
-const money = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-});
-
-function loadProducts() {
-  try {
-    const savedProducts = localStorage.getItem(storageKey);
-    if (savedProducts === null) return defaultProducts.map((product) => ({ ...product }));
-
-    const parsedProducts = JSON.parse(savedProducts);
-    if (!Array.isArray(parsedProducts)) {
-      throw new TypeError('Saved products must be a list.');
-    }
-
-    return parsedProducts;
-  } catch {
-    productMessage.textContent =
-      'Saved products could not be loaded. Showing the sample list instead.';
-    return defaultProducts.map((product) => ({ ...product }));
-  }
-}
-
-let products = loadProducts();
-
-function saveProducts(nextProducts, successMessage) {
-  try {
-    localStorage.setItem(storageKey, JSON.stringify(nextProducts));
-  } catch {
-    productMessage.textContent =
-      'Could not save changes in this browser. Check storage permissions and try again.';
-    return false;
-  }
-
-  products = nextProducts;
-  renderProducts();
-  productMessage.textContent = successMessage;
-  return true;
+let products;
+try {
+  products = loadProducts();
+} catch {
+  products = createDefaultProducts();
+  productMessage.textContent =
+    'Saved products could not be loaded. Showing the sample list instead.';
 }
 
 function makeCell(value) {
@@ -118,6 +82,21 @@ function renderProducts() {
   });
 }
 
+function saveProductList(nextProducts, successMessage) {
+  try {
+    persistProducts(nextProducts);
+  } catch {
+    productMessage.textContent =
+      'Could not save product changes in this browser. Check storage permissions and try again.';
+    return false;
+  }
+
+  products = nextProducts;
+  renderProducts();
+  productMessage.textContent = successMessage;
+  return true;
+}
+
 function openProductForm(product) {
   productForm.reset();
   productMessage.textContent = '';
@@ -144,36 +123,6 @@ function closeProductForm() {
   productForm.hidden = true;
 }
 
-function showPanel(selectedTab) {
-  const isAdmin = selectedTab === adminTab;
-  const tabs = [adminTab, customerTab];
-
-  tabs.forEach((tab) => {
-    const active = tab === selectedTab;
-    tab.classList.toggle('is-active', active);
-    tab.setAttribute('aria-selected', String(active));
-    tab.tabIndex = active ? 0 : -1;
-  });
-
-  adminPanel.hidden = !isAdmin;
-  customerPanel.hidden = isAdmin;
-  guestMessage.textContent = '';
-}
-
-adminTab.addEventListener('click', () => showPanel(adminTab));
-customerTab.addEventListener('click', () => showPanel(customerTab));
-
-for (const tab of [adminTab, customerTab]) {
-  tab.addEventListener('keydown', (event) => {
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-      event.preventDefault();
-      const nextTab = tab === adminTab ? customerTab : adminTab;
-      showPanel(nextTab);
-      nextTab.focus();
-    }
-  });
-}
-
 adminLoginForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
@@ -192,7 +141,7 @@ adminLoginForm.addEventListener('submit', (event) => {
   renderProducts();
 });
 
-document.querySelector('#closeDashboardButton').addEventListener('click', () => {
+document.querySelector('#signOutButton').addEventListener('click', () => {
   adminDashboard.hidden = true;
   adminAccessCard.hidden = false;
   adminLoginForm.reset();
@@ -221,7 +170,7 @@ productTableBody.addEventListener('click', (event) => {
   }
 
   if (button.dataset.action === 'delete' && window.confirm(`Delete "${product.name}"?`)) {
-    saveProducts(
+    saveProductList(
       products.filter((item) => item.id !== productId),
       `${product.name} was deleted.`,
     );
@@ -252,18 +201,13 @@ productForm.addEventListener('submit', (event) => {
         ? { ...product, name, category, price, stock }
         : product,
     );
-    if (saveProducts(nextProducts, `${name} was updated.`)) closeProductForm();
+    if (saveProductList(nextProducts, `${name} was updated.`)) closeProductForm();
     return;
   }
 
   const nextId = products.reduce((highestId, product) => Math.max(highestId, product.id), 0) + 1;
   const nextProducts = [...products, { id: nextId, name, category, price, stock }];
-  if (saveProducts(nextProducts, `${name} was added.`)) closeProductForm();
-});
-
-document.querySelector('#guestButton').addEventListener('click', () => {
-  guestMessage.textContent =
-    'Guest shopping needs no account. The storefront is the next step to build.';
+  if (saveProductList(nextProducts, `${name} was added.`)) closeProductForm();
 });
 
 renderProducts();
