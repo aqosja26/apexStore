@@ -70,40 +70,115 @@
             role="tabpanel"
             aria-labelledby="adminTab"
           >
-            <h3>Administrator sign in</h3>
-            <p class="panel-description">
-              Sign in to manage your store.
-            </p>
+            <section id="adminAccessCard">
+              <h3>Administrator sign in</h3>
+              <p class="panel-description">
+                Use the sample admin account to open the demo dashboard.
+              </p>
+              <p class="demo-warning">
+                Demo credentials: <strong>admin@apexstore.test</strong> /
+                <strong>admin123</strong>. This frontend-only login is not secure
+                and is for demonstration only.
+              </p>
+              <form id="adminLoginForm">
+                <label for="adminEmail">Email address</label>
+                <input
+                  id="adminEmail"
+                  name="email"
+                  type="email"
+                  placeholder="admin@apexstore.test"
+                  autocomplete="username"
+                  required
+                />
 
-            <form id="adminLoginForm">
-              <label for="email">Email address</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="admin@example.com"
-                autocomplete="username"
-                required
-              />
+                <label for="adminPassword">Password</label>
+                <input
+                  id="adminPassword"
+                  name="password"
+                  type="password"
+                  placeholder="Enter the demo password"
+                  autocomplete="current-password"
+                  required
+                />
 
-              <div class="password-label">
-                <label for="password">Password</label>
+                <button class="primary-button" type="submit">Sign in</button>
+                <p class="form-message" id="adminMessage" role="status" aria-live="polite"></p>
+              </form>
+            </section>
+
+            <section class="admin-dashboard" id="adminDashboard" hidden>
+              <div class="dashboard-heading">
+                <div>
+                  <p class="eyebrow">Sample administrator</p>
+                  <h3>Product management</h3>
+                </div>
+                <button class="secondary-button" id="closeDashboardButton" type="button">
+                  Sign out
+                </button>
               </div>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="Enter your password"
-                autocomplete="current-password"
-                required
-              />
 
-              <button class="primary-button" type="submit">Sign in</button>
-              <p class="form-message" id="adminMessage" role="status" aria-live="polite"></p>
-            </form>
-            <p class="security-note">
-              Administrator access is separate from customer shopping.
-            </p>
+              <p class="demo-warning">
+                Demo only: changes are saved in this browser and are not shared
+                with customers or other devices.
+              </p>
+
+              <div class="product-list-heading">
+                <p id="productCount" class="product-count"></p>
+                <button class="primary-button add-product-button" id="addProductButton" type="button">
+                  Add product
+                </button>
+              </div>
+
+              <p class="form-message" id="productMessage" role="status" aria-live="polite"></p>
+
+              <div class="table-scroll">
+                <table class="product-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Category</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Stock</th>
+                      <th scope="col"><span class="visually-hidden">Actions</span></th>
+                    </tr>
+                  </thead>
+                  <tbody id="productTableBody"></tbody>
+                </table>
+              </div>
+
+              <form class="product-form" id="productForm" hidden>
+                <div class="form-heading">
+                  <h4 id="productFormTitle">Add product</h4>
+                  <button class="icon-button" id="cancelProductButton" type="button" aria-label="Close product form">
+                    ×
+                  </button>
+                </div>
+                <input id="productId" name="id" type="hidden" />
+
+                <label for="productName">Name</label>
+                <input id="productName" name="name" type="text" maxlength="80" required />
+
+                <label for="productCategory">Category</label>
+                <input id="productCategory" name="category" type="text" maxlength="40" required />
+
+                <div class="form-fields-row">
+                  <div>
+                    <label for="productPrice">Price ($)</label>
+                    <input id="productPrice" name="price" type="number" min="0" step="0.01" required />
+                  </div>
+                  <div>
+                    <label for="productStock">Stock</label>
+                    <input id="productStock" name="stock" type="number" min="0" step="1" required />
+                  </div>
+                </div>
+
+                <div class="product-form-actions">
+                  <button class="secondary-button" id="discardProductButton" type="button">Cancel</button>
+                  <button class="primary-button" id="saveProductButton" type="submit">Save product</button>
+                </div>
+              </form>
+            </section>
           </section>
 
           <section
