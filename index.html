@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Sign in to manage apexStore or browse the store as a guest."
+    />
+    <title>Welcome | apexStore</title>
+    <link rel="stylesheet" href="stylish/styles.css" />
+    <script src="javascripts/app.js" defer></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="welcome-card" aria-labelledby="welcome-title">
+        <div class="brand-panel">
+          <a class="brand" href="#" aria-label="apexStore home">
+            <span class="brand-mark" aria-hidden="true">A</span>
+            <span>apex<span class="brand-light">Store</span></span>
+          </a>
+
+          <div class="brand-message">
+            <p class="eyebrow">Good gear. Better days.</p>
+            <h1 id="welcome-title">Your next favorite thing is closer.</h1>
+            <p class="brand-description">
+              Discover thoughtful tech and everyday essentials, picked to keep
+              up with you.
+            </p>
+          </div>
+
+          <p class="brand-footnote">A little more you, in every detail.</p>
+        </div>
+
+        <div class="access-panel">
+          <div class="access-heading">
+            <p class="eyebrow">Welcome to apexStore</p>
+            <h2>How would you like to continue?</h2>
+            <p>Choose the option that fits you.</p>
+          </div>
+
+          <div class="role-switch" role="tablist" aria-label="Choose account type">
+            <button
+              class="role-tab is-active"
+              id="adminTab"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              aria-controls="adminPanel"
+              tabindex="0"
+            >
+              Administrator
+            </button>
+            <button
+              class="role-tab"
+              id="customerTab"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="customerPanel"
+              tabindex="-1"
+            >
+              Customer
+            </button>
+          </div>
+
+          <section
+            class="role-panel"
+            id="adminPanel"
+            role="tabpanel"
+            aria-labelledby="adminTab"
+          >
+            <h3>Administrator sign in</h3>
+            <p class="panel-description">
+              Sign in to manage your store.
+            </p>
+
+            <form id="adminLoginForm">
+              <label for="email">Email address</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="admin@example.com"
+                autocomplete="username"
+                required
+              />
+
+              <div class="password-label">
+                <label for="password">Password</label>
+              </div>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+              />
+
+              <button class="primary-button" type="submit">Sign in</button>
+              <p class="form-message" id="adminMessage" role="status" aria-live="polite"></p>
+            </form>
+            <p class="security-note">
+              Administrator access is separate from customer shopping.
+            </p>
+          </section>
+
+          <section
+            class="role-panel"
+            id="customerPanel"
+            role="tabpanel"
+            aria-labelledby="customerTab"
+            hidden
+          >
+            <div class="guest-icon" aria-hidden="true">✦</div>
+            <h3>Just browsing?</h3>
+            <p class="panel-description">
+              No account or sign-in needed. Explore the store and shop as a guest.
+            </p>
+            <button class="primary-button" id="guestButton" type="button">
+              Continue as a guest
+            </button>
+            <p class="form-message" id="guestMessage" role="status" aria-live="polite"></p>
+          </section>
+        </div>
+      </section>
+      <p class="page-note">Simple shopping starts here.</p>
+    </main>
+  </body>
+</html>

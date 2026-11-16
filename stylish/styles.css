@@ -1,0 +1,358 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  color-scheme: light;
+  font-family: 'DM Sans', sans-serif;
+  color: #242323;
+  background: #f5f2ed;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --ink: #242323;
+  --muted: #77746f;
+  --accent: #c36545;
+  --accent-dark: #a64e32;
+  --line: #e9e5df;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 12% 10%, rgba(234, 213, 192, 0.46), transparent 36%),
+    #f5f2ed;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid rgba(195, 101, 69, 0.38);
+  outline-offset: 3px;
+}
+
+.page-shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 48px 24px 24px;
+}
+
+.welcome-card {
+  display: grid;
+  width: min(100%, 1020px);
+  min-height: 620px;
+  grid-template-columns: 0.92fr 1.08fr;
+  overflow: hidden;
+  border: 1px solid rgba(66, 51, 42, 0.08);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 24px 80px rgba(67, 55, 42, 0.11);
+}
+
+.brand-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 42px;
+  color: #fff9f3;
+  background:
+    linear-gradient(160deg, rgba(42, 34, 30, 0.15), rgba(42, 34, 30, 0.82)),
+    radial-gradient(ellipse at 80% 18%, #d7a47e 0, transparent 38%),
+    linear-gradient(140deg, #a87350 0%, #654d42 50%, #332f2d 100%);
+}
+
+.brand {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 11px;
+  color: inherit;
+  font-family: Manrope, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  text-decoration: none;
+}
+
+.brand-light {
+  font-weight: 500;
+}
+
+.brand-mark {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid rgba(255, 249, 243, 0.64);
+  border-radius: 11px;
+  font-size: 1rem;
+}
+
+.brand-message {
+  max-width: 380px;
+  margin: 52px 0;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.brand-panel .eyebrow {
+  color: #f1cbb2;
+}
+
+.brand-message h1,
+.access-heading h2 {
+  margin: 0;
+  font-family: Manrope, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.055em;
+}
+
+.brand-message h1 {
+  max-width: 380px;
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  line-height: 1.08;
+}
+
+.brand-description {
+  max-width: 335px;
+  margin: 20px 0 0;
+  color: rgba(255, 249, 243, 0.78);
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+
+.brand-footnote,
+.page-note {
+  margin: 0;
+  font-size: 0.78rem;
+}
+
+.brand-footnote {
+  color: rgba(255, 249, 243, 0.65);
+}
+
+.access-panel {
+  padding: 58px clamp(32px, 6vw, 72px);
+}
+
+.access-heading h2 {
+  max-width: 400px;
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+.access-heading > p:last-child {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.role-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin: 30px 0 28px;
+  padding: 4px;
+  border-radius: 12px;
+  background: #f4f1ed;
+}
+
+.role-tab {
+  min-height: 42px;
+  border: 0;
+  border-radius: 9px;
+  color: #79756f;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.role-tab.is-active {
+  color: var(--ink);
+  background: white;
+  box-shadow: 0 2px 8px rgba(44, 37, 29, 0.08);
+}
+
+.role-panel h3 {
+  margin: 0;
+  font-family: Manrope, sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: -0.03em;
+}
+
+.panel-description {
+  margin: 8px 0 24px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.role-panel form {
+  display: grid;
+}
+
+.role-panel label {
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.role-panel input {
+  width: 100%;
+  height: 48px;
+  margin-bottom: 19px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: var(--ink);
+  background: #fff;
+  font-size: 0.87rem;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.role-panel input::placeholder {
+  color: #aaa59e;
+}
+
+.role-panel input:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(195, 101, 69, 0.12);
+}
+
+.password-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.password-label label {
+  margin-bottom: 8px;
+}
+
+.primary-button {
+  display: inline-flex;
+  min-height: 49px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 9px;
+  color: #fff;
+  background: var(--accent);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.primary-button:hover {
+  background: var(--accent-dark);
+}
+
+.primary-button:active {
+  transform: translateY(1px);
+}
+
+.security-note {
+  margin: 18px 0 0;
+  color: #8e8982;
+  font-size: 0.74rem;
+  line-height: 1.6;
+}
+
+.form-message {
+  min-height: 20px;
+  margin: 10px 0 0;
+  color: var(--accent-dark);
+  font-size: 0.79rem;
+  line-height: 1.5;
+}
+
+.guest-icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 18px;
+  place-items: center;
+  border-radius: 14px;
+  color: var(--accent-dark);
+  background: #f8ebe4;
+  font-size: 1.15rem;
+}
+
+#customerPanel .primary-button {
+  width: 100%;
+}
+
+.page-note {
+  margin-top: 20px;
+  color: #8f8981;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 720px) {
+  .page-shell {
+    padding: 20px 14px;
+  }
+
+  .welcome-card {
+    max-width: 500px;
+    grid-template-columns: 1fr;
+  }
+
+  .brand-panel {
+    min-height: 260px;
+    padding: 28px;
+  }
+
+  .brand-message {
+    margin: 38px 0 10px;
+  }
+
+  .brand-message h1 {
+    max-width: 420px;
+    font-size: 2.2rem;
+  }
+
+  .brand-description,
+  .brand-footnote {
+    display: none;
+  }
+
+  .access-panel {
+    padding: 34px 28px 38px;
+  }
+}
+
+@media (max-width: 380px) {
+  .access-panel {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .brand-panel {
+    padding: 24px 20px;
+  }
+}
