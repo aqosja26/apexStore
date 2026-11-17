@@ -1,7 +1,9 @@
 import {
   createDefaultProducts,
+  loadBills,
   loadProducts,
   money,
+  saveBills,
   productStorageKey,
 } from './store.js';
 
@@ -14,7 +16,7 @@ const billItemCount = document.querySelector('#billItemCount');
 const billSubtotal = document.querySelector('#billSubtotal');
 const billTotal = document.querySelector('#billTotal');
 const billMessage = document.querySelector('#billMessage');
-const printBillButton = document.querySelector('#printBillButton');
+const generateBillButton = document.querySelector('#generateBillButton');
 
 let products;
 try {
@@ -116,7 +118,7 @@ function renderBill() {
   billItemCount.textContent = String(itemCount);
   billSubtotal.textContent = money.format(subtotal);
   billTotal.textContent = money.format(subtotal);
-  printBillButton.disabled = entries.length === 0;
+  generateBillButton.disabled = entries.length === 0;
 
   if (entries.length === 0) {
     const emptyState = document.createElement('p');
@@ -222,8 +224,35 @@ billItems.addEventListener('click', (event) => {
   renderBill();
 });
 
-printBillButton.addEventListener('click', () => {
-  if (cart.size > 0) window.print();
+generateBillButton.addEventListener('click', () => {
+  const items = [...cart.entries()]
+    .map(([id, quantity]) => {
+      const product = products.find((item) => item.id === id);
+      return product && {
+        productId: product.id,
+        name: product.name,
+        price: product.price,
+        quantity,
+      };
+    })
+    .filter(Boolean);
+
+  if (items.length === 0) return;
+
+  try {
+    const bills = loadBills();
+    const id = bills.reduce((highestId, bill) => Math.max(highestId, bill.id), 0) + 1;
+    const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    saveBills([{ id, createdAt: new Date().toISOString(), items, total, reviewed: false }, ...bills]);
+  } catch {
+    billMessage.textContent = 'Could not save this bill in this browser. Check storage permissions and try again.';
+    return;
+  }
+
+  cart.clear();
+  billMessage.textContent = 'Bill generated and sent for administrator review.';
+  renderProducts();
+  renderBill();
 });
 
 window.addEventListener('storage', (event) => {

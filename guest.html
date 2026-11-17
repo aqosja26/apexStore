@@ -65,11 +65,13 @@
 
           <p class="form-message" id="billMessage" role="status" aria-live="polite"></p>
           <p class="bill-disclaimer">
-            Sample bill only. Taxes, shipping, payment, and ordering are not included.
+            Generate this sample bill for administrator review. No payment or order is created.
           </p>
-          <button class="primary-button print-bill-button" id="printBillButton" type="button" disabled>
-            Print bill
-          </button>
+          <div class="bill-actions">
+            <button class="primary-button" id="generateBillButton" type="button" disabled>
+              Generate bill
+            </button>
+          </div>
         </aside>
       </div>
     </main>

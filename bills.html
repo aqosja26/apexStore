@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Review bills submitted to apexStore." />
+    <title>Bills review | apexStore</title>
+    <link rel="stylesheet" href="stylish/styles.css" />
+    <script type="module" src="javascripts/bills.js"></script>
+  </head>
+  <body>
+    <main class="admin-dashboard admin-standalone" id="billReviewPage" hidden>
+      <header class="dashboard-heading">
+        <div>
+          <p class="eyebrow">Sample administrator</p>
+          <h1>Bills review</h1>
+        </div>
+        <button class="secondary-button" id="signOutButton" type="button">Sign out</button>
+      </header>
+
+      <p class="demo-warning">
+        Bills are saved in this browser only. They do not represent paid or completed orders.
+      </p>
+
+      <nav class="dashboard-nav" aria-label="Admin pages">
+        <a class="dashboard-tab" href="admin.html">Product management</a>
+        <a class="dashboard-tab is-active" href="bills.html" aria-current="page">Bills review</a>
+        <a class="dashboard-tab" href="statistics.html">About statistics</a>
+      </nav>
+
+      <section class="admin-panel" aria-labelledby="billReviewTitle">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Customer activity</p>
+            <h2 id="billReviewTitle">Submitted bills</h2>
+          </div>
+          <span class="product-count" id="billCount"></span>
+        </div>
+        <p class="form-message" id="billReviewMessage" role="status" aria-live="polite"></p>
+        <div class="bill-review-list" id="billReviewList" aria-live="polite"></div>
+      </section>
+    </main>
+  </body>
+</html>

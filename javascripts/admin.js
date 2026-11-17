@@ -2,8 +2,10 @@ import {
   createDefaultProducts,
   loadProducts,
   money,
+  productStorageKey,
   saveProducts as persistProducts,
 } from './store.js';
+import { endAdminSession, hasAdminSession, startAdminSession } from './admin-session.js';
 
 const adminAccessCard = document.querySelector('#adminAccessCard');
 const adminLoginForm = document.querySelector('#adminLoginForm');
@@ -136,12 +138,14 @@ adminLoginForm.addEventListener('submit', (event) => {
   }
 
   adminMessage.textContent = '';
+  startAdminSession();
   adminAccessCard.hidden = true;
   adminDashboard.hidden = false;
   renderProducts();
 });
 
 document.querySelector('#signOutButton').addEventListener('click', () => {
+  endAdminSession();
   adminDashboard.hidden = true;
   adminAccessCard.hidden = false;
   adminLoginForm.reset();
@@ -177,6 +181,17 @@ productTableBody.addEventListener('click', (event) => {
   }
 });
 
+window.addEventListener('storage', (event) => {
+  if (event.key !== productStorageKey && event.key !== null) return;
+
+  try {
+    products = loadProducts();
+    renderProducts();
+  } catch {
+    productMessage.textContent = 'Product updates could not be loaded from the other tab.';
+  }
+});
+
 productForm.addEventListener('submit', (event) => {
   event.preventDefault();
   if (!productForm.reportValidity()) return;
@@ -209,5 +224,10 @@ productForm.addEventListener('submit', (event) => {
   const nextProducts = [...products, { id: nextId, name, category, price, stock }];
   if (saveProductList(nextProducts, `${name} was added.`)) closeProductForm();
 });
+
+if (hasAdminSession()) {
+  adminAccessCard.hidden = true;
+  adminDashboard.hidden = false;
+}
 
 renderProducts();

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="View apexStore product and bill statistics." />
+    <title>About statistics | apexStore</title>
+    <link rel="stylesheet" href="stylish/styles.css" />
+    <script type="module" src="javascripts/statistics.js"></script>
+  </head>
+  <body>
+    <main class="admin-dashboard admin-standalone" id="statisticsPage" hidden>
+      <header class="dashboard-heading">
+        <div>
+          <p class="eyebrow">Sample administrator</p>
+          <h1>About statistics</h1>
+        </div>
+        <button class="secondary-button" id="signOutButton" type="button">Sign out</button>
+      </header>
+
+      <p class="demo-warning">
+        Inventory value is current product price multiplied by stock. Bill totals are submitted samples, not sales.
+      </p>
+
+      <nav class="dashboard-nav" aria-label="Admin pages">
+        <a class="dashboard-tab" href="admin.html">Product management</a>
+        <a class="dashboard-tab" href="bills.html">Bills review</a>
+        <a class="dashboard-tab is-active" href="statistics.html" aria-current="page">About statistics</a>
+      </nav>
+
+      <p class="form-message" id="statisticsMessage" role="status" aria-live="polite"></p>
+
+      <section class="admin-overview statistics-overview" aria-label="Store statistics">
+        <article class="overview-card">
+          <span class="overview-label">Products</span>
+          <strong id="statisticsProductCount">—</strong>
+          <span class="overview-detail">in your catalog</span>
+        </article>
+        <article class="overview-card">
+          <span class="overview-label">Units in stock</span>
+          <strong id="statisticsStockCount">—</strong>
+          <span class="overview-detail">across all products</span>
+        </article>
+        <article class="overview-card">
+          <span class="overview-label">Inventory value</span>
+          <strong id="statisticsInventoryValue">—</strong>
+          <span class="overview-detail">price × current stock</span>
+        </article>
+        <article class="overview-card">
+          <span class="overview-label">Bills submitted</span>
+          <strong id="statisticsBillCount">—</strong>
+          <span class="overview-detail">saved for review</span>
+        </article>
+        <article class="overview-card">
+          <span class="overview-label">Submitted bill total</span>
+          <strong id="statisticsBillValue">—</strong>
+          <span class="overview-detail">sample bills only</span>
+        </article>
+        <article class="overview-card">
+          <span class="overview-label">Needs review</span>
+          <strong id="statisticsPendingCount">—</strong>
+          <span class="overview-detail">submitted bills</span>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
